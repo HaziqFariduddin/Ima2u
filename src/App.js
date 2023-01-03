@@ -83,15 +83,22 @@ function App() {
     const querySnapshot = await getDocs(collection(db, "Quotes"));
     const quotesArray = querySnapshot.docs.map(doc => ({ quote: doc.data().Quote, author: doc.data().Author }) );
     setSign("~");
-    // Pick a random quote from the quotes in the component's state
-    const nonEmptyDifferentQuotes = quotesArray.filter(quoteObj => quoteObj.quote.trim().length > 0 && quoteObj.quote !== quoteObj.author);
+    // Ignore empty quotes and authors
+const nonEmptyQuotes = quotesArray.filter(quoteObj => quoteObj.quote.trim().length > 0 && quoteObj.author.trim().length > 0);
 
-    const randomIndex = Math.floor(Math.random() * nonEmptyDifferentQuotes.length);
-    const { quote, author } = nonEmptyDifferentQuotes[randomIndex];
-    const cleanedQuote = quote.replace(/['"]+/g, '');
-const cleanedAuthor = author.replace(/['"]+/g, '');
+// Remove quotation marks and extra quotation marks
+const cleanQuotes = nonEmptyQuotes.map(quoteObj => ({ 
+  quote: quoteObj.quote.replace(/['"]+/g, '').trim(), 
+  author: quoteObj.author.replace(/['"]+/g, '').trim() 
+}));
 
-setQuote({ quote: cleanedQuote, author: cleanedAuthor });
+// Ignore quotes where quote and author have the same value
+const uniqueQuotes = cleanQuotes.filter(quoteObj => quoteObj.quote !== quoteObj.author);
+
+// Pick a random quote from the unique quotes array
+const randomIndex = Math.floor(Math.random() * uniqueQuotes.length);
+const { quote, author } = uniqueQuotes[randomIndex];
+setQuote({ quote, author });
 
 
 

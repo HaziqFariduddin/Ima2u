@@ -84,10 +84,12 @@ function App() {
     const quotesArray = querySnapshot.docs.map(doc => ({ quote: doc.data().Quote, author: doc.data().Author }) );
     setSign("~");
     // Pick a random quote from the quotes in the component's state
-    const nonEmptyQuotes = quotesArray.filter(quoteObj => quoteObj.quote.trim().length > 0);
-  const randomIndex = Math.floor(Math.random() * nonEmptyQuotes.length);
-  const { quote, author } = nonEmptyQuotes[randomIndex];
-  setQuote({ quote, author });
+    const nonEmptyDifferentQuotes = quotesArray.filter(quoteObj => quoteObj.quote.trim().length > 0 && quoteObj.quote !== quoteObj.author);
+
+    const randomIndex = Math.floor(Math.random() * nonEmptyDifferentQuotes.length);
+    const { quote, author } = nonEmptyDifferentQuotes[randomIndex];
+    setQuote({ quote, author });
+    
       
 //Button text random//
     const nonEmptyButtonText= bText.filter(bTexts => bTexts.trim().length > 0);

@@ -88,7 +88,13 @@ function App() {
 
     const randomIndex = Math.floor(Math.random() * nonEmptyDifferentQuotes.length);
     const { quote, author } = nonEmptyDifferentQuotes[randomIndex];
-    setQuote({ quote, author });
+    const cleanedQuote = quote.replace(/['"]+/g, '');
+const cleanedAuthor = author.replace(/['"]+/g, '');
+
+setQuote({ quote: cleanedQuote, author: cleanedAuthor });
+
+
+
     
       
 //Button text random//

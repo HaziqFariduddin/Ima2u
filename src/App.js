@@ -200,7 +200,7 @@ setGradient(gradient);
                   marginTop:'1.875rem',
                   fontFamily: "'Montserrat', arial"
                 }} onClick={handleClick}>
-                 
+                  {bTexts}
                 </button>
    
           </div>

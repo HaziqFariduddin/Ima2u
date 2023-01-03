@@ -201,6 +201,7 @@ setGradient(gradient);
                   fontFamily: "'Montserrat', arial"
                 }} onClick={handleClick}>
                   {bTexts}
+                  TEXT ENV
                 </button>
    
           </div>
